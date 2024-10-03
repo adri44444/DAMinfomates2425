@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Numero : MonoBehaviour
 {
-
     private float _vel;
 
+    public Sprite[] spritesNumerosPossibles = new Sprite[10];
+
+    private int valorNumero;
 
     private Vector2 minPantalla;
 
@@ -15,15 +17,17 @@ public class Numero : MonoBehaviour
     {
         _vel = 5f;
 
+        System.Random aleatorio = new System.Random();
+        valorNumero = aleatorio.Next(0, 10);
+        GetComponent<SpriteRenderer>().sprite = spritesNumerosPossibles[valorNumero];
+
+
         minPantalla = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
         Vector2 novaPos = transform.position;
         novaPos = novaPos + new Vector2(0, -1) * _vel * Time.deltaTime;
         transform.position = novaPos;
@@ -32,7 +36,14 @@ public class Numero : MonoBehaviour
         {
             Destroy(gameObject);
 
-
         }
     }
-} 
+    private void OnTriggerEnter2D(Collider2D objecteTocat)
+    {
+        if (objecteTocat.tag == "ProjectilJugador" ||
+            objecteTocat.tag == "NauJugador")
+        {
+            Destroy(gameObject);
+        }
+    }
+}

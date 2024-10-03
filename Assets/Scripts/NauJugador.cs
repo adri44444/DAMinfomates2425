@@ -45,7 +45,7 @@ public class NauJugador : MonoBehaviour
         {
             GameObject projectil = Instantiate(prefabProjectil);
             projectil.transform.position = transform.position;
-        
+
         }
     }
     private void MovimentNau()
@@ -63,5 +63,24 @@ public class NauJugador : MonoBehaviour
         novaPos.y = Mathf.Clamp(novaPos.y, minPantalla.y, maxPantalla.y);
 
         transform.position = novaPos;
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D objecteTocat)
+    {
+        if (objecteTocat.tag == "Numero")
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D objectTocat)
+    {
+        if (objectTocat.tag == "ProjectilJugador" ||
+            objectTocat.tag == "NauJugador")
+        {
+            Destroy(gameObject);
+        }   
     }
 }
