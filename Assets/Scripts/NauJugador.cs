@@ -9,6 +9,7 @@ public class NauJugador : MonoBehaviour
     private Vector2 minPantalla, maxPantalla;
 
     [SerializeField] private GameObject prefabProjectil;
+    [SerializeField] private GameObject prefabExplosio;
 
     // Start is called before the first frame update
     void Start()
@@ -70,17 +71,11 @@ public class NauJugador : MonoBehaviour
     {
         if (objecteTocat.tag == "Numero")
         {
+            GameObject explosio = Instantiate(prefabExplosio);
+            explosio.transform.position = transform.position;
             Destroy(gameObject);
         }
 
     }
 
-    private void OnTriggerEnter2D(Collider2D objectTocat)
-    {
-        if (objectTocat.tag == "ProjectilJugador" ||
-            objectTocat.tag == "NauJugador")
-        {
-            Destroy(gameObject);
-        }   
-    }
 }
